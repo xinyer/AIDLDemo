@@ -22,7 +22,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="hello" />
+                <action android:name="com.demo.server.Hello" />
             </intent-filter>
         </service>
     </application>

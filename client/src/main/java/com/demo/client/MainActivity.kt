@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun connectServer() {
         val intent = Intent().apply {
+            component = ComponentName("com.demo.server", "com.demo.server.HelloService")
             action = "hello"
             `package` = "com.demo.server"
         }
