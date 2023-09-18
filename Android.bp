@@ -1,0 +1,50 @@
+android_app {
+    name: "AidlDemoClient",
+    srcs: ["client/src/main/**/*.kt"],
+    resource_dirs: ["client/src/main/res"],
+    manifest: "client/src/main/AndroidManifest.xml",
+    platform_apis: true,
+    certificate: "platform",
+    privileged: true,
+    static_libs: [
+        "androidx.core_core-ktx",
+        "androidx.appcompat_appcompat",
+        "androidx-constraintlayout_constraintlayout",
+        "com.google.android.material_material",
+        "AidlDemoCommon",
+    ],
+}
+
+android_app {
+    name: "AidlDemoServer",
+    srcs: ["server/src/main/**/*.kt"],
+    resource_dirs: ["server/src/main/res"],
+    manifest: "server/src/main/AndroidManifest.xml",
+    platform_apis: true,
+    certificate: "platform",
+    privileged: true,
+    static_libs: [
+        "androidx.core_core-ktx",
+        "androidx.appcompat_appcompat",
+        "androidx-constraintlayout_constraintlayout",
+        "com.google.android.material_material",
+        "AidlDemoCommon",
+    ],
+}
+
+android_library {
+    name: "AidlDemoCommon",
+    srcs: ["common/**/*.aidl"],
+    aidl: {
+        local_include_dirs: ["common/src"],
+    },
+    resource_dirs: [],
+    manifest: "common/src/main/AndroidManifest.xml",
+    platform_apis: true,
+    static_libs: [
+        "androidx.core_core-ktx",
+        "androidx.appcompat_appcompat",
+        "androidx-constraintlayout_constraintlayout",
+        "com.google.android.material_material"
+    ],
+}
