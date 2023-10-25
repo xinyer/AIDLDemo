@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     private fun connectServer() {
         val intent = Intent().apply {
             component = ComponentName("com.demo.server", "com.demo.server.HelloService")
-            action = "hello"
+            action = "com.demo.server.Hello"
             `package` = "com.demo.server"
         }
         bindService(intent, connection, BIND_AUTO_CREATE)
