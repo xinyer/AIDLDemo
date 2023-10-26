@@ -1,10 +1,10 @@
-package com.demo.client
+package com.demo.client2
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.demo.api.DemoSdk
 import com.demo.api.Result
-import com.demo.client.databinding.ActivityMainBinding
+import com.demo.client2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         DemoSdk.getInstance(this).setActionCallback(object : DemoSdk.ActionCallback {
             override fun <T> onAction(result: Result<T>): String? {
                 return when(result.action) {
-                    "action_input" -> {
+                    "action_toggle" -> {
                         ""
                     }
                     else -> null

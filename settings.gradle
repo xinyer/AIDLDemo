@@ -17,3 +17,5 @@ rootProject.name = "AIDLDemo"
 include ':common'
 include ':server'
 include ':client'
+include ':client2'
+include ':api'

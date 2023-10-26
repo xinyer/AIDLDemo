@@ -5,6 +5,9 @@
       <entry key="client">
         <State />
       </entry>
+      <entry key="client2">
+        <State />
+      </entry>
       <entry key="server">
         <State />
       </entry>
