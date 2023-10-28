@@ -16,7 +16,7 @@ import com.google.gson.reflect.TypeToken
 class DemoSdk private constructor(private val context: Context) {
 
     private var sdk: IDemoSdk? = null
-    private var callback: ActionCallback? = null
+    private var callback: ResultCallback? = null
     private val gson = Gson()
 
     private var deathRecipient = object : IBinder.DeathRecipient {
@@ -35,16 +35,17 @@ class DemoSdk private constructor(private val context: Context) {
             try {
                 sdk?.registerCallback(context.packageName, object : ICallback.Stub() {
                     override fun onResult(type: String, result: String): String? {
+                        println("onResult: $type, $result")
                         return when(ElementType.valueOf(type)) {
                             ElementType.INPUT -> {
                                 val dataType = object : TypeToken<Result<InputData>>() {}.type
                                 val input = gson.fromJson<Result<InputData>>(result, dataType)
-                                callback?.onAction(input)
+                                callback?.onResult(input)
                             }
                             ElementType.TOGGLE -> {
                                 val dataType = object : TypeToken<Result<ToggleData>>() {}.type
                                 val toggle = gson.fromJson<Result<ToggleData>>(result, dataType)
-                                callback?.onAction(toggle)
+                                callback?.onResult(toggle)
                             }
                         }
                     }
@@ -60,21 +61,18 @@ class DemoSdk private constructor(private val context: Context) {
         }
     }
 
-    fun connectServer() {
+    fun connect(callback: ResultCallback) {
         val intent = Intent().apply {
             component = ComponentName("com.demo.server", "com.demo.server.DemoSdkService")
             action = "com.demo.server.SDK"
             `package` = "com.demo.server"
         }
         context.bindService(intent, connection, Context.BIND_AUTO_CREATE)
-    }
-
-    fun setActionCallback(callback: ActionCallback) {
         this.callback = callback
     }
 
-    interface ActionCallback {
-        fun <T> onAction(result: Result<T>): String?
+    interface ResultCallback {
+        fun <T> onResult(result: Result<T>): String?
     }
 
     companion object {

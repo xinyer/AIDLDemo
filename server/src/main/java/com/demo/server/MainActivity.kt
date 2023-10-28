@@ -1,6 +1,7 @@
 package com.demo.server
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.demo.api.ElementType
 import com.demo.api.InputData
@@ -23,17 +24,21 @@ class MainActivity : AppCompatActivity() {
                 Result(
                     action = "action_input",
                     type = ElementType.INPUT,
-                    data = InputData("hello input")
+                    data = InputData("Hi, client")
                 )
             )
-            println("result got from clint: $result")
+            result?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
         }
         binding.sendActionToClient2Button.setOnClickListener {
             val result = ClientManager.getInstance().doAction(
                 "com.demo.client2",
                 Result(action = "action_toggle", type = ElementType.TOGGLE, data = ToggleData(true))
             )
-            println("result got from clint2: $result")
+            result?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

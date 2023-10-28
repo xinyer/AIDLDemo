@@ -1,10 +1,9 @@
 package com.demo.server
 
-import com.demo.common.ICallback
-import java.lang.Exception
-import java.util.concurrent.ConcurrentHashMap
 import com.demo.api.Result
+import com.demo.common.ICallback
 import com.google.gson.Gson
+import java.util.concurrent.ConcurrentHashMap
 
 class ClientManager private constructor() {
 
@@ -12,6 +11,7 @@ class ClientManager private constructor() {
     private val gson = Gson()
 
     fun add(packageName: String, callback: ICallback) {
+        println("add client: $packageName")
         callbacks[packageName] = callback
     }
 
@@ -23,7 +23,7 @@ class ClientManager private constructor() {
         return try {
             callbacks[packageName]?.onResult(result.type.name, gson.toJson(result))
         } catch (e: Exception) {
-            remove(packageName)
+            e.printStackTrace()
             null
         }
     }
