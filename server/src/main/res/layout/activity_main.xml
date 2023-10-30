@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:context=".MainActivity">
-
 
     <Button
         android:id="@+id/sendActionToClientButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="send action to client"/>
+        android:text="send action to client" />
 
     <Button
         android:id="@+id/sendActionToClient2Button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="send action to client2"/>
+        android:text="send action to client2" />
 
 </LinearLayout>
