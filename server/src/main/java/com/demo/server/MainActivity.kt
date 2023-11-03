@@ -1,12 +1,11 @@
 package com.demo.server
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.demo.api.ElementType
-import com.demo.api.InputData
-import com.demo.api.Result
-import com.demo.api.ToggleData
+import com.demo.api.model.ElementType
+import com.demo.api.model.Input
+import com.demo.api.model.Result
+import com.demo.api.model.Toggle
 import com.demo.server.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,26 +18,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.sendActionToClientButton.setOnClickListener {
-            val result = ClientManager.getInstance().doAction(
+            ClientManager.getInstance().action(
                 "com.demo.client",
-                Result(
-                    action = "action_input",
-                    type = ElementType.INPUT,
-                    data = InputData("Hi, client")
-                )
+                Result("action_input", ElementType.INPUT, Input("Hi, client"))
             )
-            result?.let {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-            }
         }
         binding.sendActionToClient2Button.setOnClickListener {
-            val result = ClientManager.getInstance().doAction(
+            ClientManager.getInstance().action(
                 "com.demo.client2",
-                Result(action = "action_toggle", type = ElementType.TOGGLE, data = ToggleData(true))
+                Result("action_toggle", ElementType.TOGGLE, Toggle(true))
             )
-            result?.let {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-            }
         }
     }
 }

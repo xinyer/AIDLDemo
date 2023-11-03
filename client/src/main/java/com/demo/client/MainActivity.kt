@@ -1,10 +1,12 @@
 package com.demo.client
 
 import android.os.Bundle
+import android.os.Messenger
 import androidx.appcompat.app.AppCompatActivity
-import com.demo.api.DemoSdk
-import com.demo.api.InputData
-import com.demo.api.Result
+import com.demo.api.DemoSDK
+import com.demo.api.EgMessage
+import com.demo.api.model.Element
+import com.demo.api.model.Result
 import com.demo.client.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -13,15 +15,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        DemoSdk.getInstance(this).connect(object : DemoSdk.ResultCallback {
-            override fun <T> onResult(result: Result<T>): String? {
-                return when(result.action) {
-                    "action_input" -> {
-                        val input = (result.data as InputData).value
-                        "Hello server, Client got your input value is : $input"
-                    }
-                    else -> null
-                }
+        DemoSDK.getInstance().connect(this, object : DemoSDK.ResultCallback {
+            override fun <T : Element?> onResult(messenger: Messenger, result: Result<T>) {
+                println("get result from server: $result")
+                messenger.send(EgMessage("message from client").toMessage())
             }
         })
     }
